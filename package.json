@@ -9,7 +9,7 @@
     "build:prod": "cross-env BUILD_MODE=production webpack"
   },
   "keywords": [],
-  "author": "",
+  "author": "Daulet Tulepbergenov",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.12.11",
