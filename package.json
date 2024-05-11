@@ -4,6 +4,7 @@
   "description": "My webpack build",
   "main": "index.js",
   "scripts": {
+    "start": "webpack serve BUILD_MODE=development",
     "build:local": "cross-env BUILD_MODE=development webpack",
     "build:dev": "cross-env BUILD_MODE=development webpack",
     "build:prod": "cross-env BUILD_MODE=production webpack"
@@ -14,12 +15,15 @@
   "devDependencies": {
     "@types/node": "^20.12.11",
     "@types/webpack": "^5.28.5",
+    "@types/webpack-bundle-analyzer": "^4.7.0",
     "cross-env": "^7.0.3",
     "html-webpack-plugin": "^5.6.0",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5",
     "webpack": "^5.91.0",
-    "webpack-cli": "^5.1.4"
+    "webpack-bundle-analyzer": "^4.10.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
   }
 }

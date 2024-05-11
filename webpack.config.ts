@@ -1,6 +1,8 @@
 import path from "path";
-import webpack from "webpack";
+import { type Configuration, ProgressPlugin } from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 
 enum BuildMode {
   Production = "production",
@@ -31,7 +33,12 @@ class ModeService {
 
 const modeService = new ModeService();
 
-const config: webpack.Configuration = {
+const devServer: DevServerConfiguration = {
+  port: 1337,
+  hot: true,
+};
+
+const config: Configuration = {
   mode: modeService.getMode(),
   entry: path.resolve(__dirname, "src", "index.ts"),
   devtool: modeService.isDev() ? "inline-source-map" : false,
@@ -49,6 +56,7 @@ const config: webpack.Configuration = {
     filename: "index.[fullhash].js",
     clean: true,
   },
+  devServer: modeService.isDev() ? devServer : undefined,
   resolve: {
     extensions: [".tsx", ".ts", ".js", "jsx"],
   },
@@ -57,7 +65,11 @@ const config: webpack.Configuration = {
       template: "public/index.html",
       minify: modeService.isProd(),
     }),
-    modeService.isDev() && new webpack.ProgressPlugin(),
+    modeService.isDev() &&
+      new BundleAnalyzerPlugin({
+        openAnalyzer: false,
+      }),
+    modeService.isDev() && new ProgressPlugin(),
   ],
 };
 
